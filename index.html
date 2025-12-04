@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Web Scraper</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <i class="fas fa-spider"></i>
+            <h1>Advanced Web Scraper</h1>
+        </div>
+        <div class="nav-actions">
+            <button class="btn btn--outline btn--sm">
+                <i class="fas fa-bell"></i>
+            </button>
+            <button class="btn btn--primary btn--sm">
+                <i class="fas fa-user"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#new-scraper" class="nav-item" data-section="new-scraper">
+                    <i class="fas fa-plus"></i>
+                    <span>New Scraper</span>
+                </a>
+                <a href="#active-jobs" class="nav-item" data-section="active-jobs">
+                    <i class="fas fa-play"></i>
+                    <span>Active Jobs</span>
+                </a>
+                <a href="#data-manager" class="nav-item" data-section="data-manager">
+                    <i class="fas fa-database"></i>
+                    <span>Data Manager</span>
+                </a>
+                <a href="#proxy-settings" class="nav-item" data-section="proxy-settings">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Proxy Settings</span>
+                </a>
+                <a href="#settings" class="nav-item" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <header class="section-header">
+                    <h2>Dashboard</h2>
+                    <p>Monitor your web scraping operations and performance</p>
+                </header>
+
+                <!-- Statistics Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-jobs">12</h3>
+                            <p>Total Jobs</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="active-jobs-count">3</h3>
+                            <p>Active Jobs</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-records">45,823</h3>
+                            <p>Records Collected</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="success-rate">87.4%</h3>
+                            <p>Success Rate</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h3>Quick Actions</h3>
+                    <div class="action-buttons">
+                        <button class="btn btn--primary" data-action="new-scraper">
+                            <i class="fas fa-plus"></i>
+                            Start New Job
+                        </button>
+                        <button class="btn btn--secondary" data-action="data-manager">
+                            <i class="fas fa-eye"></i>
+                            View Data
+                        </button>
+                        <button class="btn btn--outline" data-action="proxy-settings">
+                            <i class="fas fa-shield-alt"></i>
+                            Manage Proxies
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-feed" id="activity-feed">
+                        <!-- Activity items will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- New Scraper Section -->
+            <section id="new-scraper" class="content-section">
+                <header class="section-header">
+                    <h2>Create New Scraper</h2>
+                    <p>Configure your web scraping project</p>
+                </header>
+
+                <div class="scraper-form-container">
+                    <!-- Tab Navigation -->
+                    <div class="tab-nav">
+                        <button class="tab-button active" data-tab="basic">Basic Settings</button>
+                        <button class="tab-button" data-tab="extraction">Data Extraction</button>
+                        <button class="tab-button" data-tab="advanced">Advanced Options</button>
+                        <button class="tab-button" data-tab="export">Export Settings</button>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content">
+                        <!-- Basic Settings Tab -->
+                        <div id="basic-tab" class="tab-panel active">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Project Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter project name" id="project-name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Target URL</label>
+                                    <input type="url" class="form-control" placeholder="https://example.com" id="target-url">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Scraping Method</label>
+                                    <select class="form-control" id="scraping-method">
+                                        <option value="static">Static HTML</option>
+                                        <option value="javascript">JavaScript-rendered</option>
+                                        <option value="api">API endpoints</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Request Delay (seconds)</label>
+                                    <input type="range" min="1" max="10" value="2" class="range-slider" id="request-delay">
+                                    <span class="range-value">2s</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Max Pages</label>
+                                    <input type="number" class="form-control" placeholder="100" id="max-pages">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">User Agent</label>
+                                    <select class="form-control" id="user-agent">
+                                        <option value="chrome">Chrome (Latest)</option>
+                                        <option value="firefox">Firefox (Latest)</option>
+                                        <option value="safari">Safari (Latest)</option>
+                                        <option value="edge">Edge (Latest)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Data Extraction Tab -->
+                        <div id="extraction-tab" class="tab-panel">
+                            <div class="extraction-section">
+                                <div class="form-group">
+                                    <label class="form-label">Extraction Pattern</label>
+                                    <select class="form-control" id="extraction-pattern">
+                                        <option value="custom">Custom Pattern</option>
+                                        <option value="ecommerce">E-commerce Product</option>
+                                        <option value="news">News Article</option>
+                                        <option value="contact">Contact Information</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="selectors-grid">
+                                    <div class="form-group">
+                                        <label class="form-label">Title/Name Selector</label>
+                                        <input type="text" class="form-control selector-input" placeholder=".title, h1" id="title-selector">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Description Selector</label>
+                                        <input type="text" class="form-control selector-input" placeholder=".description" id="description-selector">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Price/Value Selector</label>
+                                        <input type="text" class="form-control selector-input" placeholder=".price" id="price-selector">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Image URL Selector</label>
+                                        <input type="text" class="form-control selector-input" placeholder=".image img" id="image-selector">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Link URL Selector</label>
+                                        <input type="text" class="form-control selector-input" placeholder="a" id="link-selector">
+                                    </div>
+                                </div>
+
+                                <div class="custom-fields">
+                                    <button class="btn btn--secondary" id="add-field">
+                                        <i class="fas fa-plus"></i>
+                                        Add Custom Field
+                                    </button>
+                                    <div id="custom-fields-container"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Options Tab -->
+                        <div id="advanced-tab" class="tab-panel">
+                            <div class="advanced-options">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <input type="checkbox" class="checkbox" id="proxy-rotation">
+                                        Enable Proxy Rotation
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">CAPTCHA Handling</label>
+                                    <select class="form-control">
+                                        <option value="skip">Skip Pages with CAPTCHA</option>
+                                        <option value="manual">Manual Solving</option>
+                                        <option value="service">Use Solving Service</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <input type="checkbox" class="checkbox" id="cookies-enabled">
+                                        Enable Cookies & Sessions
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Retry Attempts</label>
+                                    <input type="number" class="form-control" value="3" min="1" max="10">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Custom Headers</label>
+                                    <textarea class="form-control" placeholder="Authorization: Bearer token" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Export Settings Tab -->
+                        <div id="export-tab" class="tab-panel">
+                            <div class="export-settings">
+                                <div class="form-group">
+                                    <label class="form-label">Output Format</label>
+                                    <select class="form-control" id="output-format">
+                                        <option value="json">JSON</option>
+                                        <option value="csv">CSV</option>
+                                        <option value="xml">XML</option>
+                                        <option value="excel">Excel</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">File Naming Pattern</label>
+                                    <input type="text" class="form-control" value="{project}_{date}_{time}" placeholder="Enter naming pattern">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <input type="checkbox" class="checkbox" id="remove-duplicates">
+                                        Remove Duplicate Records
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <input type="checkbox" class="checkbox" id="validate-emails">
+                                        Validate Email Addresses
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn--outline" id="preview-config">Preview Configuration</button>
+                        <button class="btn btn--primary" id="start-scraper">Start Scraping</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Active Jobs Section -->
+            <section id="active-jobs" class="content-section">
+                <header class="section-header">
+                    <h2>Active Jobs</h2>
+                    <p>Monitor and manage your running scraping jobs</p>
+                </header>
+
+                <div class="jobs-table-container">
+                    <table class="jobs-table">
+                        <thead>
+                            <tr>
+                                <th>Job Name</th>
+                                <th>Status</th>
+                                <th>Progress</th>
+                                <th>Records</th>
+                                <th>Success Rate</th>
+                                <th>Started</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="jobs-table-body">
+                            <!-- Jobs will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Data Manager Section -->
+            <section id="data-manager" class="content-section">
+                <header class="section-header">
+                    <h2>Data Manager</h2>
+                    <p>View, search, and export your collected data</p>
+                </header>
+
+                <div class="data-controls">
+                    <div class="search-bar">
+                        <input type="text" class="form-control" placeholder="Search data..." id="data-search">
+                        <button class="btn btn--secondary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="data-actions">
+                        <button class="btn btn--outline">
+                            <i class="fas fa-download"></i>
+                            Export
+                        </button>
+                        <button class="btn btn--outline">
+                            <i class="fas fa-trash"></i>
+                            Delete Selected
+                        </button>
+                    </div>
+                </div>
+
+                <div class="data-table-container">
+                    <div class="data-preview">
+                        <h3>Sample Data Preview</h3>
+                        <p>Showing latest collected records. Use search and filters to find specific data.</p>
+                        <div class="sample-data">
+                            <!-- Sample data will be shown here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Proxy Settings Section -->
+            <section id="proxy-settings" class="content-section">
+                <header class="section-header">
+                    <h2>Proxy Settings</h2>
+                    <p>Manage your proxy servers and rotation settings</p>
+                </header>
+
+                <div class="proxy-controls">
+                    <button class="btn btn--primary" id="add-proxy">
+                        <i class="fas fa-plus"></i>
+                        Add Proxy
+                    </button>
+                    <button class="btn btn--secondary" id="test-all-proxies">
+                        <i class="fas fa-check-circle"></i>
+                        Test All
+                    </button>
+                </div>
+
+                <div class="proxy-table-container">
+                    <table class="proxy-table">
+                        <thead>
+                            <tr>
+                                <th>IP Address</th>
+                                <th>Port</th>
+                                <th>Country</th>
+                                <th>Status</th>
+                                <th>Response Time</th>
+                                <th>Success Rate</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="proxy-table-body">
+                            <!-- Proxy data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="content-section">
+                <header class="section-header">
+                    <h2>Settings</h2>
+                    <p>Configure application preferences and account settings</p>
+                </header>
+
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>General Settings</h3>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <input type="checkbox" class="checkbox" checked>
+                                Auto-save configurations
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <input type="checkbox" class="checkbox" checked>
+                                Show desktop notifications
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Default export format</label>
+                            <select class="form-control">
+                                <option value="json">JSON</option>
+                                <option value="csv" selected>CSV</option>
+                                <option value="excel">Excel</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Data Retention</h3>
+                        <div class="form-group">
+                            <label class="form-label">Keep data for</label>
+                            <select class="form-control">
+                                <option value="30">30 days</option>
+                                <option value="90" selected>90 days</option>
+                                <option value="365">1 year</option>
+                                <option value="0">Forever</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <input type="checkbox" class="checkbox">
+                                Auto-delete failed jobs
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Add Proxy Modal -->
+    <div id="add-proxy-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Proxy Server</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">IP Address</label>
+                    <input type="text" class="form-control" placeholder="192.168.1.100">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Port</label>
+                    <input type="text" class="form-control" placeholder="8080">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Country</label>
+                    <input type="text" class="form-control" placeholder="United States">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--outline modal-cancel">Cancel</button>
+                <button class="btn btn--primary">Add Proxy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
